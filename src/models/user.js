@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true, select: false },
     bio: { type: String },
     avatar: { type: String },
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   },
   { timestamps: true }
 );
