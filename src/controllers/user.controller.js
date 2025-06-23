@@ -133,4 +133,28 @@ const unfollowUser = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-module.exports = { registerUser, loginUser, followUser, unfollowUser };
+
+const searchUsers = async (req, res) => {
+  try {
+    const query = req.query.username;
+
+    if (!query) {
+      return res.status(400).json({ message: "Please provide a search query" });
+    }
+
+    const users = await User.find({
+      username: { $regex: query, $options: "i" },
+    }).select("username avatar");
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+module.exports = {
+  registerUser,
+  loginUser,
+  followUser,
+  unfollowUser,
+  searchUsers,
+};

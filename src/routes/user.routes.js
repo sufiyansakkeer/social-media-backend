@@ -9,9 +9,11 @@ const {
   loginUser,
   followUser,
   unfollowUser,
+  searchUsers,
 } = require("../controllers/user.controller");
 
 router.post("/register", registerUser);
+router.get("/search", protect, searchUsers);
 router.post("/login", loginUser);
 router.put("/follow/:id", protect, followUser);
 router.put("/unfollow/:id", protect, unfollowUser);
